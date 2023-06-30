@@ -1,13 +1,14 @@
 const axios =  require('axios').default;
 const chai = require('chai');
-const simple = require('./fixtures/hard-hard.json')
+const simple = require('./fixtures/master-medium.json')
 var expect = chai.expect;
 
-//desafio": "Imprimir de acordo com o valor quais carros cada usuário pode comprar ex:
-// Eu sou Wood tenho 400000 e posso comprar um Dynamics Pink. Fazer isso para Todos. Validar os endereços da Loja e o ceo. 
-// E imprimir o valor final do registration, ex: O street do norte é: Northland"
 
-async function hardhardGet(){
+// desafio": "Imprimir de acordo com o valor quais carros cada usuário pode comprar 
+// ex: Eu sou Wood tenho 400000 e posso comprar um Dynamics Pink MAS, se ele for VIP Informe quais carro ele também tem direito.
+// Fazer isso para Todos. Validar os endereços da Loja e o ceo.  E imprimir o valor final do registration, ex: O street do norte é: Northland
+
+async function mastermediumGet(){
     try {
         let get = await axios.get('https://demo8910120.mockable.io/');
         let street = ""
@@ -19,18 +20,23 @@ async function hardhardGet(){
             }
           }
     
-          let texto = "Eu sou" + user.name + " tenho " + user.money + " e posso comprar";
+          let texto = "Eu sou "  + user.name + " tenho " + user.money + " e posso comprar ";
     
           if (affordableCars.length > 0) {
             affordableCars.forEach(car => {
-              texto +=  car.car + " " + car.color + " ";
+              texto += car.car +  " " + car.color + " "; 
             });
           } else {
             texto += " Nenhum carro disponível";
           }
+
+          if(user.class == "VIP"){
+            const vipCar = get.data[0].VIPs.map((vip) => vip.car)
+            texto += " além disso, posso ter " + vipCar + " ";
+          }
     
           console.log(texto);
-          
+        
         }
           street = "O sreet do norte é: " + get.data[0].registration.base[0].north.street;
           console.log(street)
@@ -40,10 +46,9 @@ async function hardhardGet(){
     
       } catch (error) {
         console.error(error);
-}
+      }
       
     }
 
 
-hardhardGet();
-
+mastermediumGet();
