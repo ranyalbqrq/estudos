@@ -19,7 +19,7 @@ async function hardhardGet(){
             }
           }
     
-          let texto = "Eu sou" + user.name + " tenho " + user.money + " e posso comprar";
+          let texto = "Eu sou " + user.name + " tenho " + user.money + " e posso comprar" + " ";
     
           if (affordableCars.length > 0) {
             affordableCars.forEach(car => {
